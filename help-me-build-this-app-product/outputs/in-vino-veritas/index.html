@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>In Vino Veritas</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">IVV</div>
+          <div>
+            <p class="eyebrow">Restaurant wine assist</p>
+            <h1>In Vino Veritas</h1>
+          </div>
+        </div>
+        <div class="session-status">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="sessionStatus">Taste check in progress</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="conversation-panel" aria-labelledby="tasteTitle">
+          <div class="section-heading">
+            <p class="eyebrow">Step 1</p>
+            <h2 id="tasteTitle">Taste</h2>
+          </div>
+
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+          <div id="choiceArea" class="choice-area"></div>
+
+          <div class="quick-row">
+            <button id="backQuestion" class="ghost-button" type="button">
+              <i data-lucide="arrow-left" aria-hidden="true"></i>
+              Back
+            </button>
+            <button id="resetTaste" class="ghost-button" type="button">
+              <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+              Reset
+            </button>
+          </div>
+        </section>
+
+        <section class="menu-panel" aria-labelledby="menuTitle">
+          <div class="section-heading">
+            <p class="eyebrow">Step 2</p>
+            <div class="heading-actions">
+              <h2 id="menuTitle">Wine List</h2>
+              <button id="refreshMenu" class="icon-only" type="button" title="Refresh menu scan">
+                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="budget-strip">
+            <label class="field-group" for="budgetInput">
+              <span>Max spend</span>
+              <span class="money-input">
+                <span>$</span>
+                <input id="budgetInput" type="number" min="8" max="2000" step="1" value="80" />
+              </span>
+            </label>
+
+            <fieldset class="segmented" aria-label="Serving mode">
+              <input id="modeBottle" type="radio" name="servingMode" value="bottle" checked />
+              <label for="modeBottle">Bottle</label>
+              <input id="modeGlass" type="radio" name="servingMode" value="glass" />
+              <label for="modeGlass">Glass</label>
+            </fieldset>
+
+            <label class="toggle-row" for="allowOverage">
+              <input id="allowOverage" type="checkbox" />
+              <span>Slight overage ok</span>
+            </label>
+          </div>
+
+          <div class="upload-band">
+            <label class="upload-target" for="wineImage">
+              <i data-lucide="camera" aria-hidden="true"></i>
+              <span>Photo</span>
+              <input id="wineImage" type="file" accept="image/*" capture="environment" />
+            </label>
+            <button id="runOcr" class="icon-button" type="button" title="Read photo">
+              <i data-lucide="scan-line" aria-hidden="true"></i>
+              <span>Read</span>
+            </button>
+            <button id="loadSample" class="ghost-button compact" type="button">
+              <i data-lucide="sparkles" aria-hidden="true"></i>
+              Sample
+            </button>
+          </div>
+
+          <div id="imagePreviewWrap" class="image-preview-wrap" hidden>
+            <img id="imagePreview" alt="Uploaded wine list preview" />
+          </div>
+
+          <label class="field-group menu-text" for="menuText">
+            <span>Detected menu text</span>
+            <textarea id="menuText" rows="10" spellcheck="false" placeholder="Paste or correct the wine list text here."></textarea>
+          </label>
+
+          <div class="parse-row">
+            <div id="ocrStatus" class="ocr-status">No photo selected</div>
+            <button id="recommendButton" class="primary-button" type="button">
+              <i data-lucide="wine" aria-hidden="true"></i>
+              Pick for me
+            </button>
+          </div>
+        </section>
+
+        <section class="results-panel" aria-labelledby="resultsTitle">
+          <div class="section-heading">
+            <p class="eyebrow">Step 3</p>
+            <h2 id="resultsTitle">Picks</h2>
+          </div>
+
+          <div id="recommendationSummary" class="recommendation-summary">
+            <p>Finish taste and add a menu to get a confident short list.</p>
+          </div>
+
+          <div id="recommendations" class="recommendations"></div>
+
+          <div class="history-panel">
+            <div class="history-header">
+              <h3>Memory</h3>
+              <button id="clearMemory" class="icon-only" type="button" title="Clear memory">
+                <i data-lucide="trash-2" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div id="memoryChips" class="memory-chips"></div>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
